@@ -9,7 +9,7 @@ networks:
 services:
 ####Traefik is a modern HTTP reverse proxy and load balancer that makes deploying microservices easy
   traefik:
-    image: traefik:$TRAEFIKVERSION
+    image: traefik:v2.4
     container_name: traefik
     restart: always
     networks:
@@ -35,7 +35,7 @@ services:
 ####Portainer is a lightweight management UI which allows you to easily manage your different Docker
   portainer:
     container_name: portainer
-    image: portainer/portainer:$PORTAINERVERSION
+    image: portainer/portainer-ce:lts
     restart: always
     depends_on:
       - traefik
