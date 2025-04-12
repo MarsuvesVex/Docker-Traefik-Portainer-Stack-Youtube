@@ -1,0 +1,9 @@
+
+
+
+**/portainer
+**/mariadb
+**/redis
+
+**/log
+*.log
