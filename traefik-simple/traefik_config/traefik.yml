@@ -10,7 +10,7 @@ log:
 accessLog:
   filePath: /log/access.log
   bufferingSize: 100
-  filters:    
+  filters:
     statusCodes:
       - 200
       - 300-302
@@ -35,9 +35,9 @@ entryPoints:
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
-    exposedByDefault: false 
+    exposedByDefault: false
     network: proxy
   file:
-    directory: /configurations/
+    directory: ./configurations/
     watch: true
     debugLogGeneratedTemplate: true
