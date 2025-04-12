@@ -7,14 +7,14 @@ log:
 
 global:
   checkNewVersion: true
-  sendAnonymousUsage: true 
+  sendAnonymousUsage: true
 ################################################################
 # Access logs configuration
 ################################################################
 accessLog:
   filePath: /log/access.log
   bufferingSize: 100
-  filters:    
+  filters:
     statusCodes:
       - 200
       - 300-302
@@ -26,6 +26,7 @@ accessLog:
 ################################################################
 api:
   dashboard: true
+  insecure: true
 
 entryPoints:
   http:
@@ -36,7 +37,7 @@ entryPoints:
 providers:
   docker:
     endpoint: "unix:///var/run/docker.sock"
-    exposedByDefault: false 
+    exposedByDefault: false
     network: proxy
   file:
     directory: /configurations/
