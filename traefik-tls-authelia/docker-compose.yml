@@ -21,6 +21,12 @@ services:
       proxy:
         aliases:
           - "ca.dev.local"
+    dns:
+      - 11.100.100.10
+    extra_hosts:
+      - "*.dev.local:11.100.100.10"
+    expose:
+      - 9000
     ports:
       - 9000:9000
     volumes:
@@ -30,8 +36,8 @@ services:
       - "traefik.http.routers.ca-web.entrypoints=http"
       - "traefik.http.routers.ca-web.rule=Host(`ca.dev.local`)"
 
-      # - "traefik.http.middlewares.ca-redirect.redirectscheme.scheme=https"
-      # - "traefik.http.routers.ca-web.middlewares=ca-redirect"
+      - "traefik.http.middlewares.ca-redirect.redirectscheme.scheme=https"
+      - "traefik.http.routers.ca-web.middlewares=ca-redirect"
 
       # - "traefik.http.routers.ca-websecure.middlewares=ca-redirect@file"
       # - "traefik.http.routers.ca-websecure.middlewares=chain-authelia@file"
@@ -148,8 +154,8 @@ services:
       - "--accesslog=false"
       - "--log=true"
       - "--log.level=DEBUG"
-      - "--entrypoints.web.address=:80"
-      - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.http.address=:80"
+      - "--entrypoints.https.address=:443"
       - "--certificatesResolvers.myresolver.acme.tlsChallenge=true"
       - "--certificatesResolvers.myresolver.acme.email=admin"
       - "--certificatesResolvers.myresolver.acme.storage=/etc/acme/acme.json"
@@ -220,10 +226,10 @@ services:
       - traefik.http.routers.portainer-http-rtr.entrypoints=http
       - traefik.http.routers.portainer-https-rtr.rule=Host(`portainer.$DOMAINNAME`)
       - traefik.http.routers.portainer-https-rtr.entrypoints=https
-      # - traefik.http.routers.portainer-https-rtr.tls=true
-      # - traefik.http.routers.portainer-https-rtr.tls.certresolver=myresolver
+      - traefik.http.routers.portainer-https-rtr.tls=true
+      - traefik.http.routers.portainer-https-rtr.tls.certresolver=myresolver
       ## Middlewares Rules
-      # - traefik.http.routers.portainer-http-rtr.middlewares=middlewares-https-redirect@file
+      - traefik.http.routers.portainer-http-rtr.middlewares=middlewares-https-redirect@file
       # - traefik.http.routers.portainer-https-rtr.middlewares=chain-authelia@file
 ####Dozzle is a simple, a web based interface to monitor your Docker container logs
   dozzle:
